@@ -36,17 +36,6 @@ class MultiValue(Aggregated):
         super(MultiValue, self).render(renderer.indent())
         renderer.write(Newline())
 
-class SingleValue(MultiValue):
-
-    def render(self, renderer, right=False):
-        if len(self._values) > 1:
-            raise ValueError('Expected single value, but {} values found'.format(len(self._values)))
-
-        super(SingleValue, self).render(renderer, right)
-
-    def _render(self, renderer, right=False):
-        renderer.indent().write(self._values[0])
-
 class Select(MultiValue):
     required = True
     name = 'select'
@@ -57,7 +46,7 @@ class From(MultiValue):
 class Join(MultiValue):
     name = 'join'
 
-class Where(SingleValue):
+class Where(Renderable):
     name = 'where'
 
 class Order(MultiValue):
