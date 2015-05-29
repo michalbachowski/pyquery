@@ -68,19 +68,13 @@ class Where(SingleValue):
 class Order(MultiValue):
     name = 'order'
 
-class AbstractLimit(Renderable):
+class Limit(Renderable):
+    name = 'limit'
 
     def __init__(self, limit, offset=0):
         self.limit = limit
         self.offset = offset
 
-class Limit(AbstractLimit):
-
     def render(self, renderer, right=False):
-        renderer.write(Indentation())
-        renderer.write('limit ')
-        if self.offset:
-            renderer.write(self.offset, True)
-            renderer.write(',', True)
-        renderer.write(self.limit, True)
+        renderer.dialect.limit_class(self).render(renderer, right)
 
