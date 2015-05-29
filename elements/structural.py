@@ -1,9 +1,9 @@
 # encoding: utf-8
 from __future__ import absolute_import
 
-from . import Aggregated, Literal, Field
+from . import Aggregated, Literal, Field, Renderable
 from .text import Newline, Indentation, ValueSeparator
-from ..renderer import Renderable, iseparate
+from ..utils import iseparate
 
 __all__ = ['Select', 'From', 'Join', 'Where', 'Order', 'Limit', 'Keyword']
 

@@ -1,7 +1,23 @@
 # encoding: utf-8
 from __future__ import absolute_import
 
-from ..renderer import Renderable
+import abc
+
+from ._compat import with_metaclass
+
+class Renderable(with_metaclass(abc.ABCMeta)):
+    """ Base class for renderable value objects """
+
+    @abc.abstractmethod
+    def render(self, renderer, right=False):
+        """ Renders current value object
+
+        :param renderer: renderer to be used to render value of object
+        :type renderer: Renderer
+        :param right: indicates that current object is placed on right hand side of and expression
+        :type right: bool
+        """
+        pass # pragma: no cover
 
 class Literal(Renderable):
 

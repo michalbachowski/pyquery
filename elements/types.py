@@ -3,7 +3,7 @@
 from . import Literal, Quoted, Aggregated
 from .structural import Keyword
 from .._compat import (map, string_types, integer_types, ip_types)
-from ..renderer import Renderable
+from . import Renderable
 
 def native(value):
 
