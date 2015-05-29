@@ -30,10 +30,6 @@ def iseparate(separator, iterable):
     except StopIteration:
         return
 
-def render_list(values, renderer, level, right=False):
-    for value in values:
-        value.render(renderer, level, right)
-
 class Renderer(object):
     """ Class that writes Renderable objects into predefined stream """
 

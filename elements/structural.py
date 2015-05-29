@@ -2,8 +2,8 @@
 from __future__ import absolute_import
 
 from . import Aggregated, Literal, Field
-from .text import Newline, Indentation
-from ..renderer import Renderable, render_list, iseparate
+from .text import Newline, Indentation, ValueSeparator
+from ..renderer import Renderable, iseparate
 
 __all__ = ['Select', 'From', 'Join', 'Where', 'Order', 'Limit', 'Keyword']
 
@@ -12,19 +12,19 @@ class Keyword(Literal):
     def render(self, renderer, right=False):
         renderer.write(Indentation()).write(self.value.upper())
 
-class MultiValue(Renderable):
-
-    separator = ','
+class MultiValue(Aggregated):
 
     required = False
 
     name = None
 
     def __init__(self, *args):
-        self._values = args
-
-    def field_name(self):
-        return self.name
+        super(MultiValue, self).__init__(
+            iseparate(
+                Aggregated([ValueSeparator(), Newline()]),
+                args
+            )
+        )
 
     def render(self, renderer, right=False):
         if self.required and len(self._values) == 0:
@@ -32,13 +32,9 @@ class MultiValue(Renderable):
                 self.name
             ))
 
-        renderer.write(Field(self.field_name)).write(Newline())
-        self._render(renderer)
+        renderer.write(Field(self.name)).write(Newline())
+        super(MultiValue, self).render(renderer.indent())
         renderer.write(Newline())
-
-    def _render(self, renderer, right=False):
-        render_list(iseparate(Aggregated(self.separator, Newline()), self._values),
-                    renderer.indent())
 
 class SingleValue(MultiValue):
 
@@ -52,7 +48,6 @@ class SingleValue(MultiValue):
         renderer.indent().write(self._values[0])
 
 class Select(MultiValue):
-
     required = True
     name = 'select'
 

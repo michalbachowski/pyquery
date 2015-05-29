@@ -13,12 +13,12 @@ class Literal(Renderable):
 
 class Aggregated(Renderable):
 
-    def __init__(self, *args):
-        self._values = args
+    def __init__(self, value):
+        self.value = list(value)
 
     def render(self, renderer, right=False):
-        for value in self._values:
-            renderer.write(value)
+        for value in self.value:
+            renderer.write(value, right)
 
 class Quoted(Literal):
 
