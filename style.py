@@ -3,11 +3,16 @@
 class Style(object):
 
     def __init__(self, newline, indent):
-        self.indent = str(indent)
         self.newline = str(newline)
+        self.indent = str(indent)
 
-def pretty():
-    return Style("\n", '    ')
+class Pretty(Style):
 
-def sparse():
-    return Style('', ' ')
+    def __init__(self):
+        super(Pretty, self).__init__("\n", '    ')
+
+class Sparse(Style):
+
+    def __init__(self):
+        super(Sparse, self).__init__('', '')
+
