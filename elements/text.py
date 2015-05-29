@@ -13,3 +13,8 @@ class Indentation(Renderable):
     def render(self, renderer, right=False):
         renderer.write(renderer.style.indent * renderer.indentation_level)
 
+class ValueSeparator(Renderable):
+
+    def render(self, renderer, right=False):
+        renderer.write(renderer.dialect.value_separator)
+
