@@ -45,6 +45,7 @@ if not is_py2:
     # other
     import ipaddress
     ip_parser = ipaddress.ip_address
+    ip_types = (ipaddress.IPv4Address, ipaddress.IPv6Address)
 
 else:
     # Python 2
@@ -68,3 +69,4 @@ else:
 
     # other
     ip_parser = str
+    ip_types = None
